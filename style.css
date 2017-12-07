@@ -1,0 +1,13 @@
+#canvas {
+  background-color: green
+}
+
+.title {
+  text-align: center;
+}
+
+.game-box {
+  border: 3px solid green;
+  margin: 0 auto;
+  display: block;
+}

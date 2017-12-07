@@ -1,0 +1,14 @@
+{
+  "name": "snake",
+  "version": "1.0.0",
+  "description": "snake game implemented in JS",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src -o bundle.js"
+  },
+  "author": "Michael Liou",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
+}

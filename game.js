@@ -3,50 +3,37 @@ const ctx = canvas.getContext("2d");
 
 
 const snake = {
-  x: 10,
-  y: 10,
-  size: 10,
   length: 5,
   direction: 'right',
   sections: [],
   snakeConstructor: function (x, y) {
     ctx.fillStyle = 'green';
-    ctx.fillRect(x * snake.size, y * snake.size, snake.size, snake.size);
+    ctx.fillRect(x * game.objSize, y * game.objSize, game.objSize, game.objSize);
     // This is the border of the square
     ctx.strokeStyle = 'darkgreen';
-    ctx.strokeRect(x * snake.size, y * snake.size, snake.size, snake.size);
+    ctx.strokeRect(x * game.objSize, y * game.objSize, game.objSize, game.objSize);
   },
   drawSnake: function() {
     for (let i = snake.length; i >= 0; i--) {
+      console.log("drawing snake")
       snake.sections.push({x:i, y:0});
     }  
-  },
-  move: function() {
-   switch (snake.direction) {
-     case 'up':
-       snake.y -= snake.size;
-       break;
-     case 'down':
-       snake.y += snake.size;
-       break;
-     case 'left':
-       snake.x -= snake.size;
-       break;
-     case 'right':
-       snake.x += snake.size;
-       break;
-   }
- }
+  }
 }
 //logic for food 
 const food = {
+  x: Math.floor((Math.random() * 30) + 1),
+  y: Math.floor((Math.random() * 30) + 1),
+  foodConstructor: function(x, y) {
+     ctx.fillStyle = 'red';
+     ctx.fillRect(x * game.objSize+1, y * game.objSize+1, game.objSize-2, game.objSize-2);
+  },
   createFood: function () {
-    x = Math.floor((Math.random() * 30) + 1)
-    y = Math.floor((Math.random() * 30) + 1)
-    for (var i=0; i>snake.length; i++) {
-      var snakeX = snake[i].x;
-      var snakeY = snake[i].y;        
-      if (food.x===snakeX || food.y === snakeY || food.y === snakeY && food.x===snakeX) {
+    for (let i = 0; i > snake.length; i++) {
+      //checking for any spot where the snake currently is
+      var snakeX = snake.sections[i].x;
+      var snakeY = snake.sections[i].y;        
+      if (food.x === snakeX || food.y === snakeY || food.y === snakeY && food.x===snakeX) {
         food.x = Math.floor((Math.random() * 30) + 1);
         food.y = Math.floor((Math.random() * 30) + 1);
       }
@@ -57,6 +44,7 @@ const food = {
 const game = {
   fps: 8,
   over: false,
+  objSize: 10,
   render: function () {
     w = 280;
     h = 300;
@@ -64,6 +52,8 @@ const game = {
     ctx.fillRect(0, 0, 280, 300);
     var snakeX = snake.sections[0].x;
     var snakeY = snake.sections[0].y;
+    console.log("SnakeX ", snakeX)
+    console.log("SnakeY ", snakeY)
     switch (snake.direction) {
       case 'right':
         snakeX++;
